@@ -1,0 +1,91 @@
+Biblioteka standardowa języka C++ udostępnia bardzo przydatny typ
+std::unordered_map. Jest to typ generyczny, pozwalający tworzyć
+słowniki o różnych kluczach i wartościach, np.
+std::unordered_map<int, std::string>,
+std::unordered_map<std:string, std::string>, a nawet
+std::unordered_map<std::string, std::unordered_map<int, std::string>>
+i inne. Biblioteka standardowa języka C nie udostępnia podobnego typu.
+W praktyce programistycznej często pojawia się też konieczność
+łączenia kodu napisanego w C i C++.
+
+Napisz w C++ moduł maptel udostępniający w języku C słowniki
+obsługujące zmiany numerów telefonicznych. W języku C numer
+telefoniczny jest przechowywany w tablicy znaków typu char jako ciąg
+maksymalnie 22 cyfr zapisanych w ASCII i jest zakończony terminalnym
+zerem.
+
+Moduł maptel powinien składać się z pliku nagłówkowego maptel.h
+deklarującego jego interfejs oraz pliku maptel.cc zawierającego jego
+implementację.
+
+Moduł maptel powinien udostępniać następujący interfejs.
+
+// Tworzy słownik i zwraca liczbę naturalną będącą jego identyfikatorem.
+unsigned long maptel_create();
+
+// Usuwa słownik o identyfikatorze id.
+void maptel_delete(unsigned long id)
+
+// Wstawia do słownika o identyfikatorze id informację o zmianie numeru
+// tel_src na numer tel_dst. Nadpisuje ewentualną istniejącą informację.
+void maptel_insert(unsigned long id, char const *tel_src, char const *tel_dst);
+
+// Jeśli w słowniku o identyfikatorze id jest informacja o zmianie numeru
+// tel_src, to ją usuwa. W przeciwnym przypadku nic nie robi.
+void maptel_erase(unsigned long id, char const *tel_src);
+
+// Sprawdza, czy w słowniku o identyfikatorze id jest zapisana zmiana numeru
+// tel_src. Podąża ciągiem kolejnych zmian. Zapisuje zmieniony numer w tel_dst.
+// Jeśli nie ma zmiany numeru lub zmiany tworzą cykl, to zapisuje w tel_dst
+// numer tel_src. Wartość len to wielkość przydzielonej pamięci wskazywanej
+// przez tel_dst.
+void maptel_transform(unsigned long id, char const *tel_src, char *tel_dst, size_t len);
+
+Nagłówek modułu maptel powinien udostępniać stałą TEL_NUM_MAX_LEN typu
+size_t o wartości 22.
+
+Przykład użycia znajduje się w pliku maptel_test1.c.
+
+Ludzie bywają przewrotni i mając kod, który można używać w języku C,
+chcą go też używać w C++. Napisz plik nagłówkowy cmaptel, który
+umieszcza interfejs modułu maptel w przestrzeni nazw jnp1. Przykład
+użycia znajduje się w pliku maptel_test2.cc
+
+Kompilowanie przykładów:
+
+g++ -c -Wall -O2 -std=c++11 maptel.cc -o maptel.o
+gcc -c -Wall -O2 maptel_test1.c -o maptel_test1.o
+g++ -c -Wall -O2 -std=c++11 maptel_test2.cc -o maptel_test2.o
+g++ maptel_test1.o maptel.o -o maptel_test1
+g++ maptel_test2.o maptel.o -o maptel_test2
+
+Moduł maptel powinien sprawdzać poprawność parametrów i wykonania
+funkcji za pomocą asercji i wypisywać na standardowy strumień błędów
+informacje diagnostyczne. Kompilowanie z parametrem -DNDEBUG powinno
+wyłączać sprawdzanie i wypisywanie.
+
+Przykłady informacji wypisywanych przez maptel_test1 i maptel_test2
+znajdują się odpowiednio w plikach maptel_test1.err i maptel_test2.err.
+
+Oczekiwane rozwiązanie powinno korzystać z kontenerów i metod
+udostępnianych przez standardową bibliotekę C++. Nie należy definiować
+własnych struktur lub klas. W rozwiązaniu nie należy nadużywać
+kompilacji warunkowej. Fragmenty tekstu źródłowego realizujące
+wyspecyfikowane operacje modułu maptel nie powinny zależeć od sposobu
+kompilowania - parametr -DNDEBUG lub jego brak (inaczej wypisywanie
+informacji diagnostycznych nie miałoby sensu).
+
+Pliki rozwiązania maptel.h, maptel.cc i cmaptel należy umieścić
+w repozytorium w katalogu
+
+grupaN/zadanie2/ab123456+cd123456
+
+lub
+
+grupaN/zadanie2/ab123456+cd123456+ef123456
+
+gdzie N jest numerem grupy, a ab123456, cd123456, ef123456 są
+identyfikatorami członków zespołu umieszczającego to rozwiązanie.
+Katalog z rozwiązaniem nie powinien zawierać innych plików, ale może
+zawierać podkatalog private, gdzie można umieszczać różne pliki, np.
+własne testy. Pliki umieszczone w tym podkatalogu nie będą oceniane.

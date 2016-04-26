@@ -1,0 +1,36 @@
+=== Trwałe drzewa BST ===
+
+Zadanie polega na implementacji wybranych operacji trwałego (ang. persistent)
+drzewa BST. W zadaniu mamy zadany interfejs drzewa (plik bst.h). Rozwiązujący
+dostarcza plik bst_imp.h, który implementuje interfejs drzewa. W szczególności
+plik bst_imp.h musi zawierać linię:
+
+#include "bst.h"
+
+Plik sample_bst_usage.cpp zawiera przykładowe wywołania funkcji.
+
+W przypadku niespełnienia warunków wejściowych funkcja powinna rzucić wyjątek
+std::logic_error. Funkcje należy pisać, o ile to możliwe, w miejscu.
+Wszystkie funkcje muszą dawać silne gwarancje wyjątków (ang. strong exception safety).
+Wszystkie funkcje powinny działać prawidłowo w środowisku wielowątkowym.
+
+Rozwiązanie będzie kompilowane na students za pomocą g++ z flagami -std=c++11 -O3 -Wall.
+
+Wskazówki:
+- zinstancjonuj wszystkie funkcje w swoich testach,
+- używaj rekursji,
+- fold to bardzo mocna konstrukcja,
+- używaj lambd,
+- używaj funkcyjnego ifa (a > b ? 1 : 0).
+
+==== Rozwiązanie ====
+
+Jako rozwiązanie należy dostarczyć plik bst_imp.h, który należy umieścić
+w repozytorium w katalogu
+
+grupaN/zadanie7/ab123456
+
+gdzie N jest numerem grupy, a ab123456 jest identyfikatorem rozwiązującego.
+Katalog z rozwiązaniem nie powinien zawierać innych plików, ale może zawierać
+podkatalog private, gdzie można umieszczać różne pliki, np. swoje testy. Pliki
+umieszczone w tym katalogu nie będą oceniane.

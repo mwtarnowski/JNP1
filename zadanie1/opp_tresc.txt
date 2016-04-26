@@ -1,0 +1,117 @@
+=== Zadanie Organizacja Pożytku Prywatnego ===
+
+Organizacja Pożytku Prywatnego (w skrócie OPP) zbiera pieniądze na
+organizowanie imprez i chciałaby wyróżniać darczyńców zależnie od
+kwoty, jaką darowali. Napisz program wspomagający ją w tym działaniu.
+
+OPP z banku dostaje dwa pliki tekstowe. Pierwszy plik zawiera listę
+darczyńców wraz z wpłaconymi kwotami w formacie: nazwa darczyńcy,
+kwota, skrót nazwy waluty. Drugi plik zawiera kursy wymiany walut do
+waluty lokalnej w formacie: skrót nazwy waluty, kurs wymiany. OPP
+generuje plik zawierający zapytania w formacie: kwota1, kwota2.
+
+Każdy rekord danych to osobny wiersz w pliku. Poszczególne pola
+w wierszu oddzielone są białymi znakami. Na początku i końcu wiersza
+może występować dowolna liczba białych znaków.
+
+Nazwa darczyńcy jest dowolnym napisem zaczynającym się niebiałym
+znakiem i kończącym się niebiałym znakiem.
+
+Kwoty i kursy walut to dodatnie liczby dziesiętne mające maksymalnie
+trzy miejsca po przecinku. Przecinek i część ułamkowa są opcjonalne.
+
+Skróty nazw walut są podawane według ISO 4217.
+
+Wszelkie obliczenia należy wykonywać z dokładnością do trzech miejsc
+po przecinku i stosować zaokrąglanie do najbliższej wartości.
+
+Program czyta ze standardowego wejścia po kolei: plik z kursami walut,
+plik z listą darczyńców, plik z zapytaniami. Dla każdego zapytania
+program wypisuje na standardowe wyjście listę darczyńców, którzy
+darowali kwotę większą lub równą kwota1 i mniejszą lub równą kwota2.
+Format wypisywania darczyńców przedstawia niżej zamieszczony przykład.
+Lista ma być posortowana rosnąco według wartości darowanej kwoty
+w walucie lokalnej, a w przypadku równych kwot ma być zachowana
+kolejność z pliku wejściowego.
+
+Program musi być odporny na niezgodność formatu danych wejściowych ze
+specyfikacją. Dla każdego niezgodnego ze specyfikacją wiersza w danych
+wejściowych program wypisuje na standardowe wyjście błędów komunikat
+w formacie:
+
+Error in line N:WIERSZ
+
+gdzie N jest numerem błędnego wiersza (wiersze numerujemy od 1),
+a WIERSZ to błędny wiersz w oryginalnej postaci (z zachowaniem
+wszystkich białych pól), w jakiej został wczytany przez program.
+Niepoprawne wiersze w danych wejściowych nie są dalej przetwarzane.
+Za niepoprawny należy też uznać wiersz zawierający wartość (kwota,
+kurs wymiany), która mogłaby doprowadzić do przepełnienia arytmetyki
+podczas przetwarzania przez program.
+
+Przykładowo, dla danych wejściowych:
+
+PLN 1
+USD 3,96
+EUR 4,19
+EUR 5,11
+PHP 1,5
+XAU 0
+Ala D 5,01 PLN
+Ala  B 5 PLN
+Ala A 5,00 PLN
+Ala C 4,99 PLN
+   Baba 30 WWW
+ C         PLN
+Miś 0,01 PLN
+X 1,001 PHP
+Y 1,003 PHP
+1 PLN
+5 5
+0 10
+0,001 0,002
+1,502 1,502
+1,504 1,504
+7 6
+
+program wypisuje na standardowym wyjściu:
+
+"Ala  B","5,000",PLN
+"Ala A","5,000",PLN
+"Miś","0,010",PLN
+"X","1,001",PHP
+"Y","1,003",PHP
+"Ala C","4,990",PLN
+"Ala  B","5,000",PLN
+"Ala A","5,000",PLN
+"Ala D","5,010",PLN
+"X","1,001",PHP
+"Y","1,003",PHP
+
+a na standardowym wyjściu błędów:
+
+Error in line 4:EUR 5,11
+Error in line 6:XAU 0
+Error in line 11:   Baba 30 WWW
+Error in line 12: C         PLN
+Error in line 16:1 PLN
+Error in line 22:7 6
+
+Oczekiwane rozwiązanie nie powinno zawierać definicji własnych
+struktur i klas. Zamiast tego należy intensywnie korzystać
+z kontenerów i algorytmów dostarczanych przez standardową bibliotekę
+języka C++. W szczególności do sortowania i wyszukiwania należy użyć
+efektywnych algorytmów. Rozwiązanie należy umieścić w pliku opp.cc,
+który należy umieścić w repozytorium w katalogu
+
+grupaN/zadanie1/ab123456+cd123456
+
+lub
+
+grupaN/zadanie1/ab123456+cd123456+ef123456
+
+gdzie N jest numerem grupy, a ab123456, cd123456, ef123456 są
+identyfikatorami członków zespołu umieszczającego to rozwiązanie.
+Katalog z rozwiązaniem nie powinien zawierać innych plików, ale może
+zawierać podkatalog private, gdzie można umieszczać różne pliki, np.
+swoje testy. Pliki umieszczone w tym podkatalogu nie będą oceniane.

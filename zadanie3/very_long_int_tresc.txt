@@ -1,0 +1,246 @@
+Zadanie polega na zaimplementowaniu klasy VeryLongInt reprezentującej liczby
+naturalne dowolnej precyzji (długie liczby) i operacji pozwalających na
+prowadzenie obliczeń z wykorzystaniem obiektów tej klasy.
+
+Klasa VeryLongInt powinna udostępniać następujące instrukcje:
+
+VeryLongInt x    - tworzy długą liczbę równą 0;
+VeryLongInt x(y) - tworzy kopię długiej liczby y (ta instrukcja powinna być
+                   również obsługiwać semantykę przenoszenia);
+VeryLongInt x(n) - tworzy długą liczbę na podstawie nieujemnej liczby
+                   całkowitej n;
+VeryLongInt x(s) - tworzy długą liczbę na podstawie jej dziesiętnego zapisu
+                   w łańcuchu s;
+
+x = y - przypisuje długą liczbę y na długą liczbę x (ta instrukcja powinna
+        również obsługiwać semantykę przenoszenia);
+x = n - przypisuje nieujemną liczbę całkowitą n na długą liczbę x;
+
+x.numberOfBinaryDigits() - zwraca liczbę cyfr w zapisie dwójkowym x;
+
+x += y  - dodaje długą liczbę y do długiej liczby x;
+x -= y  - odejmuje długą liczbę y od długiej liczby x;
+x *= y  - mnoży długą liczbę x przez długą liczbę y;
+x /= y  - dzieli (część całkowita) długą liczbę x przez długą liczbę y;
+x %= y  - wykonuje na długiej liczbie x operację modulo długa liczba y;
+x <<= i - przesuwa długa liczbę x o i bitów w lewo (gdzie i jest nieujemną liczbą całkowitą);
+x >>= i - przesuwa długa liczbę x o i bitów w prawo (gdzie i jest nieujemną liczbą całkowitą);
+
+
+x + y  - zwraca długą liczbę będącą wynikiem dodawania długiej liczby y do
+         długiej liczby x;
+x - y  - zwraca długą liczbę będącą wynikiem odejmowania długiej liczby y od
+         długiej liczby x;
+x * y  - zwraca długą liczbę będącą wynikiem mnożenia długiej liczby x przez
+         długą liczbę y;
+x / y  - zwraca długą liczbę będącą wynikiem dzielenia (część całkowitą)
+         długiej liczby x przez długą liczbę y;
+x % y  - zwraca długą liczbę będącą resztą z dzielenia długiej liczby x przez
+         długą liczbę y;
+x << i - zwraca wynik przesunięcia długiej liczby x o i bitów w lewo (gdzie
+         i jest nieujemną liczbą całkowitą);
+x >> i - zwraca wynik przesunięcia długiej liczby x o i bitów w prawo (gdzie
+         i jest nieujemną liczbą całkowitą).
+
+W przypadku dzielenia przez 0 lub odejmowania większej liczby od mniejszej
+rozwiązanie powinno implementować nieliczbę (NaN) i zwracać ją w takich
+przypadkach. Jeśli jednym z argumentów jest nieliczba, wynik powinien być
+nieliczbą. Metoda isValid() powinna zwracać false wtedy i tylko wtedy, gdy
+długa liczba jest nieliczbą.
+
+x == y, x != y, x < y, x <= y, x > y, x >= y - zwraca wynik porównania dwóch
+        długich liczb (i false, jeśli choć jeden z argumentów jest NaN).
+
+Wszystkie operacje arytmetyczne i operatory porównania mają również działać
+z argumentami, które są nieujemnymi liczbami całkowitymi, ale nie powinny
+działać z napisami (błąd kompilacji).
+
+os << x - wypisuje długą liczbę w zapisie dziesiętnym na strumień os
+          (NaN, jeśli x jest NaN).
+
+Błędem jest wypisywanie zera jako najbardziej znaczącej cyfry długiej liczby!
+
+Używanie długich liczb powinno być również możliwe w instrukcjach sterujących
+przepływem (takich jak if(x)). W takich przypadkach fałsz odpowiada NaN lub
+poprawnej długiej liczbie równej zeru. Oprócz tego przypadku, nie jest
+dopuszczalna konwersja obiektów VeryLongInt na inne typy.
+
+Powinny również być dostępne globalne niemodyfikowalne obiekty oraz
+odpowiadające im funkcje:
+
+Zero() - zwraca obiekt reprezentujący liczbę 0;
+NaN()  - zwraca obiekt reprezentujący nieliczbę.
+
+Funkcje Zero i NaN powinny zwracać obiekty, których nie można modyfikować
+(a próba modyfikowania powinna powodować błąd kompilacji).
+
+Argumenty i wyniki wszystkich operatorów, metod i funkcji powinny przyjmować
+wartości zgodne ze zwyczajowymi konwencjami w zakresie używania referencji,
+wartości typu const oraz obiektów statycznych.
+
+==== Przykład kodu korzystającego z klasy VeryLongInt ====
+
+   {
+        VeryLongInt x = 1;
+        x /= 0;
+        assert(!x.isValid());
+    }
+
+    {
+        VeryLongInt x = 100;
+        x -= 101;
+        assert(!x.isValid());
+    }
+
+    {
+        VeryLongInt x = 23;
+        VeryLongInt y = x;
+        assert(x == y);
+    }
+
+    {
+        VeryLongInt x = 23;
+        VeryLongInt y = 32;
+        x = y;
+        assert(x == y);
+    }
+
+    {
+        VeryLongInt x = 23;
+        VeryLongInt y = 32;
+        assert(y > x);
+    }
+
+    {
+        VeryLongInt x = 23;
+        VeryLongInt y = 32;
+        assert(y >= x);
+    }
+
+    {
+        VeryLongInt x = NaN();
+        assert(!x.isValid());
+    }
+
+    {
+        VeryLongInt x = 10;
+        if (x)
+            assert(1);
+        else
+            assert(0);
+    }
+
+    {
+        VeryLongInt x = 1;
+        x <<= 123;
+        x >>= 120;
+        assert(8 == x);
+    }
+
+    {
+        VeryLongInt x = 1;
+        for (int i = 1; i <= 100; ++i)
+            x *= 2;
+        assert(x % 3 == 1);
+    }
+
+    {
+        VeryLongInt x = Zero();
+        assert(x == 0);
+    }
+
+    {
+        const int N = 100;
+        VeryLongInt x = 1;
+        for (int i = 1; i < N; ++i)
+            x *= 2;
+        assert(x.numberOfBinaryDigits() == N);
+    }
+
+    {
+        VeryLongInt x("1234567890123456789012345678901234567890");
+        VeryLongInt z = x;
+        VeryLongInt y("777777777777777777777777777777777777777");
+        x = x + y;
+        x -= y;
+        assert(x == z);
+    }
+
+    {
+        VeryLongInt x(string("12345678"));
+        VeryLongInt y(12345678U);
+        assert(x == y);
+    }
+
+    {
+        VeryLongInt x("12345678901234567890");
+        VeryLongInt y(12345678901234567890UL);
+        assert(x == y);
+        cout << y << endl;
+    }
+
+    {    
+        VeryLongInt x("1234567890123456789012345678901234567890");
+        VeryLongInt y("1204567890123456789012345678901234567890");
+        VeryLongInt z(  "30000000000000000000000000000000000000");
+        assert(z == x - y);
+    }
+
+    {
+        VeryLongInt x("10000000000");
+        VeryLongInt y("100000000000");
+        VeryLongInt z("1000000000000000000000");
+        assert(z == x * y);
+    }
+
+    {
+        const int N = 1000;
+        VeryLongInt x = 1;
+        for (int i = 2; i <= N; ++i)    
+
+            x *= i;
+        for (int i = 2; i <= N; ++i)
+            x /= i;
+        assert(x == 1);
+    }
+
+    {
+        assert(Zero().numberOfBinaryDigits() == 1);
+        assert(NaN().numberOfBinaryDigits() == 0);
+    }
+
+==== Przykład kodu, który nie powinien się kompilować ====
+
+    VeryLongInt a('1'); // błąd kompilacji
+
+    VeryLongInt b(true); // błąd kompilacji
+
+    VeryLongInt c;
+    c += "123"; // błąd kompilacji
+
+    VeryLongInt d;
+    d -= ::std::string("123"); // błąd kompilacji
+
+    VeryLongInt e, f, g;
+    e * g = h; // błąd kompilacji
+
+    VeryLongInt h;
+    int i = h; // błąd kompilacji
+
+
+==== Rozwiązanie ====
+
+Rozwiązanie powinno składać się z dwóch plików: very_long_int.h oraz
+very_long_int.cc. Pliki te należy umieścić w repozytorium w katalogu
+
+grupaN/zadanie3/ab123456+cd123456
+
+lub
+
+grupaN/zadanie3/ab123456+cd123456+ef123456
+
+gdzie N jest numerem grupy, a ab123456, cd123456, ef123456 są identyfikatorami
+członków zespołu umieszczającego to rozwiązanie. Katalog z rozwiązaniem nie
+powinien zawierać innych plików, ale może zawierać podkatalog private, gdzie
+można umieszczać różne pliku, np. swoje testy. Pliki umieszczone w tym katalogu
+nie będą oceniane.

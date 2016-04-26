@@ -1,0 +1,72 @@
+=== Zadanie GSB ===
+
+Celem zadania jest napisanie Gwiezdnego Systemu Bankowego (GSB) dla Zjednoczonej
+Federacji Planet (ZFP). W skład Zjednoczonej Federacji Planet wchodzą następujące
+planety:
+* Ziemia z rasą ludzie
+* Kronos z rasą klingoni
+* Bajnaus z rasą binarowie
+
+Każdy bank może prowadzić konta dla osób fizycznych różnych ras wchodzących
+w skład ZFP. W przypadku binarów osobą fizyczną może być pojedynczy osobnik
+lub para osobników. Osoba fizyczna jest identyfikowana przez unikalny
+identyfikator planetarny oraz może posiadać własną nazwę. W przypadku binarów
+dwuosobnikowych nazwa jest złączeniem nazw dwóch osobników za pomocą znaku &.
+
+Każdy bank może prowadzić konta następującego typu:
+* konto rozliczeniowe w kredytach energetyczych (ENC)
+* konto oszczędnościowe w kredytach energetycznych (ENC)
+* konto walutowe w jednej z następujących walut: kredyty binarne (BIC), dilitium (DIL),
+litium (LIT)
+
+Każde konto umożliwia przelew na inne konto, podgląd stanu konta oraz podgląd wykonanych
+operacji na koncie. Dodatkowo dla kont rozliczeniowych możliwa jest wpłata i wypłata
+w walucie konta, natomiast dla kont walutowych możliwa jest wpłata i wypłata
+w walucie konta lub kredytach energetycznych (przewalutowanie zgodne z tabelą kursów banku).
+
+Każdy bank ma prawo do ustalenia własnych:
+* miesięcznych opłat za prowadzenie konta (zależnych od typu konta)
+* jednorazowych opłat za przelewy z konta (zależnych od typu konta)
+* miesięcznych odsetek od środków zgromadzonych na koncie (zależnych od typu konta)
+
+Aby uniknąć problemów z różnymi kalendarzami planetarnymi, wprowadzono wspólny kalendarz
+międzygwiezdny. W kalendarzu międzygwiezdnym mamy:
+* 1 dzień międzygwiezdny równy 20 godzinom
+* 1 miesiąc międzygwiezdny równy 30 dniom
+W naszym modelu zawsze zaczynamy od godziny 0 i dnia 0. W celu poprawnego mierzenia czasu
+udostępniamy klasę InterstellarClock, którą można dalej rozszerzać.
+
+Wskazówki:
+* należy zaprojektować potrzebne klasy wraz z ich hierarchiami; tam, gdzie jest to wskazane
+należy wydzielić klasy reprezentujące interfejsy
+* wszystkie błędy biznesowe powinny być zgłaszane poprzez wyjątki dziedziczące z std::exception
+* projekt powinien uwzględniać możliwość dodawania nowych planet do ZFP
+* przy projektowaniu warto dbać o luźne powiązania (ang. loose coupling) i wysoką spójność
+(ang. high cohesion) elementów
+* zasady, które pomagają osiągnąć luźne powiązania i wysoką spójność, to:
+** wzorce GRASP
+** zasady SOLID
+** wzorce projektowe GoF
+* w komentarzach należy wyjaśniać założenia projektowe
+
+=== Przykład użycia ===
+
+Przykład użycia jest dostępny w repozytorium w katalogu common/zadanie6.
+
+=== Ustalenia techniczne ===
+
+Jako rozwiązanie należy dostarczyć pliki gsb.h (zawierający #include wszystkich
+potrzebnych plików nagłówkowych projektu) oraz wszystkie pozostałe pliki, które
+należy umieścić w repozytorium w katalogu
+
+grupaN/zadanie6/ab123456+cd123456
+
+lub
+
+grupaN/zadanie6/ab123456+cd123456+ef123456
+
+gdzie N jest numerem grupy, a ab123456, cd123456, ef123456 są
+identyfikatorami członków zespołu umieszczającego to rozwiązanie.
+Katalog z rozwiązaniem nie powinien zawierać innych plików, ale może
+zawierać podkatalog private, gdzie można umieszczać różne pliki, np.
+swoje testy. Pliki umieszczone w tym podkatalogu nie będą oceniane.
